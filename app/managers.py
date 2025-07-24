@@ -4,7 +4,11 @@ from models import Actor
 
 
 class ActorManager:
-    def __init__(self, db_name: str, table_name: str) -> None:
+    def __init__(
+        self,
+        db_name: str,
+        table_name: str
+    ) -> None:
         if not table_name.endswith("s"):
             raise ValueError("Table name should be in plural form")
 
@@ -44,7 +48,12 @@ class ActorManager:
             for row in rows
         ]
 
-    def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
+    def update(
+        self,
+        pk: int,
+        new_first_name: str,
+        new_last_name: str
+    ) -> None:
         self.cursor.execute(
             f"""
             UPDATE {self.table_name}
@@ -56,7 +65,10 @@ class ActorManager:
         self.conn.commit()
 
     def delete(self, pk: int) -> None:
-        self.cursor.execute(f"DELETE FROM {self.table_name} WHERE id = ?", (pk,))
+        self.cursor.execute(
+            f"DELETE FROM {self.table_name} WHERE id = ?",
+            (pk,),
+        )
         self.conn.commit()
 
     def __del__(self) -> None:
